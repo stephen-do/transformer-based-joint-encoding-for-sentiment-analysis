@@ -2,10 +2,11 @@ import torch.nn as nn
 from models.layers.normalization import NormalizationLayer
 from models.modules.multi_head_attention import MultiHeadAttention
 from models.modules.feed_forward_net import FeedForwardNet
+from argparse import Namespace
 
 
 class SelfGuildedAttention(nn.Module):
-    def __init__(self, args):
+    def __init__(self, args: Namespace):
         super(SelfGuildedAttention, self).__init__()
 
         self.mhatt1 = MultiHeadAttention(args)

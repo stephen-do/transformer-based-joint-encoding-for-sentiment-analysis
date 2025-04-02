@@ -3,6 +3,7 @@ import torch.nn as nn
 from models.layers.normalization import NormalizationLayer
 from models.modules.attention_flattening import AttentionFlattening
 from models.block import Block
+from argparse import Namespace
 
 def make_mask(feature):
     return (torch.sum(
@@ -12,7 +13,7 @@ def make_mask(feature):
 
 
 class Model(nn.Module):
-    def __init__(self, args, vocab_size, pretrained_emb):
+    def __init__(self, args: Namespace, vocab_size, pretrained_emb):
         super(Model, self).__init__()
 
         self.args = args
@@ -24,7 +25,7 @@ class Model(nn.Module):
         )
 
         # Loading the GloVe embedding weights
-        self.embedding.weight.data.copy_(torch.from_numpy(pretrained_emb))
+        self.embedding.weight.data.copy_(pretrained_emb)
 
         self.lstm_x = nn.LSTM(
             input_size=args.word_embed_size,
@@ -61,8 +62,6 @@ class Model(nn.Module):
         embedding = self.embedding(x)
 
         x, _ = self.lstm_x(embedding)
-        # y, _ = self.lstm_y(y)
-
         y = self.adapter(y)
 
         for i, dec in enumerate(self.enc_list):

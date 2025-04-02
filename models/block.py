@@ -3,10 +3,11 @@ from models.modules.self_attention import SelfAttention
 from models.modules.self_guilded_attention import SelfGuildedAttention
 from models.modules.attention_flattening import AttentionFlattening
 from models.layers.normalization import NormalizationLayer
+from argparse import Namespace
 
 
 class Block(nn.Module):
-    def __init__(self, args, i):
+    def __init__(self, args: Namespace, i):
         super(Block, self).__init__()
         self.args = args
         self.sa1 = SelfAttention(args)

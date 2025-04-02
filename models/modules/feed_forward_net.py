@@ -1,10 +1,10 @@
 import torch.nn as nn
 from models.layers.multi_layer_perceptron import MultiLayerPerceptron
-from models.layers.normalization import NormalizationLayer
+from argparse import Namespace
 
 
 class FeedForwardNet(nn.Module):
-    def __init__(self, args):
+    def __init__(self, args: Namespace):
         super(FeedForwardNet, self).__init__()
 
         self.mlp = MultiLayerPerceptron(

@@ -2,10 +2,11 @@ import math
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
+from argparse import Namespace
 
 
 class MultiHeadAttention(nn.Module):
-    def __init__(self, args):
+    def __init__(self, args: Namespace):
         super(MultiHeadAttention, self).__init__()
         self.args = args
 

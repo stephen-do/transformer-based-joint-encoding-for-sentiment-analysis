@@ -2,10 +2,11 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 from models.layers.multi_layer_perceptron import MultiLayerPerceptron
+from argparse import Namespace
 
 
 class AttentionFlattening(nn.Module):
-    def __init__(self, args, flat_glimpse, merge=False):
+    def __init__(self, args: Namespace, flat_glimpse, merge=False):
         super(AttentionFlattening, self).__init__()
         self.args = args
         self.merge = merge
