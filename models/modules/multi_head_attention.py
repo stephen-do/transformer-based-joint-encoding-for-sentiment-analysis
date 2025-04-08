@@ -15,7 +15,7 @@ class MultiHeadAttention(nn.Module):
         self.linear_q = nn.Linear(args.hidden_size, args.hidden_size)
         self.linear_merge = nn.Linear(args.hidden_size, args.hidden_size)
 
-        self.dropout = nn.Dropout(args.dropout_r)
+        self.dropout = nn.Dropout(args.dropout_rate)
 
     def forward(self, v, k, q, mask):
         n_batches = q.size(0)

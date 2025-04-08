@@ -1,7 +1,7 @@
 import torch.nn as nn
 from models.layers.normalization import NormalizationLayer
 from models.modules.multi_head_attention import MultiHeadAttention
-from models.modules.feed_forward_net import FeedForwardNet
+from models.layers.feed_forward_net import FeedForwardNet
 from argparse import Namespace
 
 
@@ -12,10 +12,10 @@ class SelfAttention(nn.Module):
         self.mhatt = MultiHeadAttention(args)
         self.ffn = FeedForwardNet(args)
 
-        self.dropout1 = nn.Dropout(args.dropout_r)
+        self.dropout1 = nn.Dropout(args.dropout_rate)
         self.norm1 = NormalizationLayer(args.hidden_size)
 
-        self.dropout2 = nn.Dropout(args.dropout_r)
+        self.dropout2 = nn.Dropout(args.dropout_rate)
         self.norm2 = NormalizationLayer(args.hidden_size)
 
     def forward(self, y, y_mask):

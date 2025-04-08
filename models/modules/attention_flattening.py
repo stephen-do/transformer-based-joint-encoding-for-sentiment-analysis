@@ -13,9 +13,9 @@ class AttentionFlattening(nn.Module):
         self.flat_glimpse = flat_glimpse
         self.mlp = MultiLayerPerceptron(
             in_size=args.hidden_size,
-            mid_size=args.ff_size,
+            mid_size=args.mid_size,
             out_size=flat_glimpse,
-            dropout_r=args.dropout_r,
+            dropout_rate=args.dropout_rate,
             use_relu=True
         )
 

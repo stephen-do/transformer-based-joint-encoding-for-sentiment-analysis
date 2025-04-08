@@ -21,7 +21,8 @@ class Model(nn.Module):
         # LSTM
         self.embedding = nn.Embedding(
             num_embeddings=vocab_size,
-            embedding_dim=args.word_embed_size
+            embedding_dim=args.word_embed_size,
+            dtype=torch.float
         )
 
         # Loading the GloVe embedding weights
@@ -45,7 +46,7 @@ class Model(nn.Module):
         self.adapter = nn.Linear(args.audio_feat_size, args.hidden_size)
 
         # Encoder blocks
-        self.enc_list = nn.ModuleList([Block(args, i) for i in range(args.layer)])
+        self.enc_list = nn.ModuleList([Block(args, i) for i in range(args.num_encode_layers)])
 
         # Flattenting features before proj
         self.attflat_img  = AttentionFlattening(args, 1, merge=True)
@@ -53,9 +54,9 @@ class Model(nn.Module):
 
         # Classification layers
         self.proj_norm = NormalizationLayer(2 * args.hidden_size)
-        self.proj = self.proj = nn.Linear(2 * args.hidden_size, args.ans_size)
+        self.proj = nn.Linear(2 * args.hidden_size, args.ans_size)
 
-    def forward(self, x, y, _):
+    def forward(self, x, y):
         x_mask = make_mask(x.unsqueeze(2))
         y_mask = make_mask(y)
 
